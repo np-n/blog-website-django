@@ -1,7 +1,15 @@
-<!DOCTYPE html>
+{% extends "blog/base.html" %}
+{% block content%}
+    <h1>About Blog!</h1>
+
+{% endblock content %}
+
+
+
+<!-- We are avoiding writing similar code multiple times-->
+<!-- <!DOCTYPE html>
 <html>
 <head>
-    <!-- Checking whether title is passed or not -->
     {% if title %}
         <title>Django Blog -> {{ title }}  </title>
 
@@ -14,3 +22,4 @@
     <h1>About Blog!</h1>
 </body>
 </html>
+ -->

@@ -1,7 +1,21 @@
-<!DOCTYPE html>
+{% extends "blog/base.html" %}
+{% block content%}
+    {% for post in posts %}
+    <h1>{{post.title}}</h1>
+    <p>by {{post.author}} on {{post.date_posted}}</p>
+    <p>{{post.content}}</p>
+
+    {% endfor %}
+
+{% endblock content %}
+
+
+
+
+
+<!-- <!DOCTYPE html>
 <html>
 <head>
-    <!-- Checking whether title is passed or not -->
     {% if title %}
         <title>Django Blog -> {{ title }}/title>
 
@@ -13,9 +27,8 @@
 </head>
 <body>
 
-    <!-- Starting loop/ code bloc -->
+    Starting loop/ code bloc
     {% for post in posts %}
-    <!-- Accessing variable from views.py -->
     <h1>{{post.title}}</h1>
     <p>by {{post.author}} on {{post.date_posted}}</p>
     <p>{{post.content}}</p>
@@ -23,3 +36,4 @@
     {% endfor %}
 </body>
 </html>
+ -->
