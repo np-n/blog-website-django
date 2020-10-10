@@ -12,7 +12,7 @@
 
 
     <!-- Loading css, it will search css in static folder inside template -->
-    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static "blog/css/main.css" %}">
 
     <!-- Checking whether title is passed or not -->
     {% if title %}
@@ -25,7 +25,7 @@
 <body>
 
         <header class="site-header">
-      <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <div class="container">
           <a class="navbar-brand mr-4" href="{% url 'blog-home' %}">Django Blog</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
