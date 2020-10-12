@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from users import views as user_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -22,4 +23,8 @@ urlpatterns = [
     # To ensure / and about/ works same as blog/ and blog/about/
     # We want to use blog home page as home page in our website
     path('',include('blog.urls')),
+
+    # Alternative approach to routing without creating views.py file in app
+    # instead we import views in main project urls.py
+    path('register/',user_view.register,name='register'),
 ]
