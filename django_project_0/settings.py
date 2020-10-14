@@ -124,5 +124,22 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# To set media as the root directory for uploading files
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL ='/media/'
+
+
 # Changing css framework to bootstrap4
 CRISPY_TEMPLATE_PACK ='bootstrap4'
+
+# If login success redirect to blog-home page
+LOGIN_REDIRECT_URL = 'blog-home'
+
+# while using decorator to add check point for profile route
+# It looks login template in following route
+# : http://localhost:8000/accounts/login/?next=/profile/
+# since accounts/login is not our template path, our template path is different
+# To solve it, we need to specify LOGIN_URL to django
+LOGIN_URL = 'login'
+
+
