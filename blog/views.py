@@ -52,6 +52,9 @@ class PostListView(ListView):
     # ordering = ['date_posted'] # Old to new
     ordering = ['-date_posted'] # new to old
 
+    # Setting pagination
+    paginate_by = 4
+
 
 # Detail views of individual posts
 class PostDetailView(DetailView):
