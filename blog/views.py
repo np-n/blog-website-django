@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 # from django.http import HttpResponse
 from .models import Post
+from django.contrib.auth.models import User
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 # To check if user is not login in class based view
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
@@ -27,13 +28,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 
 # This is function bashed views
 def home(request):
-
     # passing dicionary
     context = {
-
         # Getting and passing actual post model from database
         'posts' : Post.objects.all()
-
         # # Passing  above dummy data as a dictionary
         # 'posts' : posts
     }
@@ -51,9 +49,26 @@ class PostListView(ListView):
     context_object_name = 'posts'
     # ordering = ['date_posted'] # Old to new
     ordering = ['-date_posted'] # new to old
-
     # Setting pagination
     paginate_by = 4
+
+
+# Class bashed views for  only one user post homepage
+class UserPostListView(ListView):
+    # model variable defines model to query in order to get ListView
+    # for post listview
+    model = Post
+    template_name = 'blog/user_posts.html' # <app>/<model>_<viewtype>.html
+    context_object_name = 'posts'
+    # ordering = ['date_posted'] # Old to new
+    # ordering = ['-date_posted'] # new to old
+    # Setting pagination
+    paginate_by = 4
+    def get_queryset(self):
+        # Either catch user or return 404 error if user not fount
+        user = get_object_or_404(User, username = self.kwargs.get('username'))
+        return Post.objects.filter(author = user).order_by('-date_posted')
+
 
 
 # Detail views of individual posts
@@ -65,8 +80,6 @@ class PostDetailView(DetailView):
 class PostCreateView(LoginRequiredMixin,CreateView):
     model = Post
     fields = ['title','content']
-
-
     def form_valid(self,form):
         form.instance.author = self.request.user
         return super().form_valid(form)
@@ -75,12 +88,9 @@ class PostCreateView(LoginRequiredMixin,CreateView):
 class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
     model = Post
     fields = ['title','content']
-
-
     def form_valid(self,form):
         form.instance.author = self.request.user
         return super().form_valid(form)
-
     def test_func(self):
         post = self.get_object()
         if self.request.user == post.author:
@@ -92,17 +102,14 @@ class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
 class PostDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
     model = Post
     success_url = '/'
-
     def test_func(self):
         post = self.get_object()
         if self.request.user == post.author:
             return True
         else:
             return False
-
 def about(request):
     # Here we are directly passing  title without creating dictionary
-
     # return HttpResponse('<h1>Blog about</h1>')
     return render(request,'blog/about.html',{'title':'About'})
 

@@ -1,5 +1,6 @@
 {% extends "blog/base.html" %}
 {% block content %}
+    <h2 class="mb-3">{{ page_obj.paginator.count}} posts by {{ view.kwargs.username }}</h2>
     {% for post in posts %}
         <article class="media content-section">
             <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
@@ -40,29 +41,3 @@
 {% endblock content %}
 
 
-
-
-<!-- <!DOCTYPE html>
-<html>
-<head>
-    {% if title %}
-        <title>Django Blog -> {{ title }}/title>
-
-    {% else%}
-        <title>Django Blog</title>
-
-    {% endif %}
-
-</head>
-<body>
-
-    Starting loop/ code bloc
-    {% for post in posts %}
-    <h1>{{post.title}}</h1>
-    <p>by {{post.author}} on {{post.date_posted}}</p>
-    <p>{{post.content}}</p>
-
-    {% endfor %}
-</body>
-</html>
- -->
