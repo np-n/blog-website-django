@@ -31,6 +31,7 @@ def register(request):
 
     return render(request,'users/register.html',{'form':form})
 
+
 @login_required
 def profile(request):
     # If form submit method is POST then store post content in form variable
